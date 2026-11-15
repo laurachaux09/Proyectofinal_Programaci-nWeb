@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar socio</title>
+</head>
+<body>
+
+    <h1>Registrar nuevo socio</h1>
+
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('socios.crear_socio') }}" method="POST">
+
+        <label>Documento:</label>
+        <input type="text" name="documento" maxlength="20" required>
+        <br><br>
+
+        <label>Nombre:</label>
+        <input type="text" name="nombre" maxlength="50" required>
+        <br><br>
+
+        <label>Apellido:</label>
+        <input type="text" name="apellido" maxlength="50" required>
+        <br><br>
+
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" maxlength="20">
+        <br><br>
+
+        <label>Correo:</label>
+        <input type="email" name="correo" maxlength="100">
+        <br><br>
+
+        <label>Fecha de nacimiento:</label>
+        <input type="date" name="fecha_nacimiento" required>
+        <br><br>
+
+        <label>Estado:</label>
+        <select name="estado" required>
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Registrar socio</button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('socios.listar_socios') }}">Volver a la lista</a>
+
+</body>
+</html>

@@ -8,6 +8,12 @@
 
     <h1>Socios registrados</h1>
 
+    <a href="{{ url_for('socios.crear_socio') }}">
+        Registrar nuevo socio
+    </a>
+
+    <br><br>
+
     <table border="1">
         <thead>
             <tr>
@@ -17,7 +23,10 @@
                 <th>Apellido</th>
                 <th>Teléfono</th>
                 <th>Correo</th>
+                <th>Fecha de nacimiento</th>
+                <th>Fecha de registro</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -31,6 +40,25 @@
                 <td>{{ socio[4] }}</td>
                 <td>{{ socio[5] }}</td>
                 <td>{{ socio[6] }}</td>
+                <td>{{ socio[7] }}</td>
+                <td>{{ socio[8] }}</td>
+
+                <td>
+                    <a href="{{ url_for('socios.editar_socio', socio_id=socio[0]) }}">
+                        Editar
+                    </a>
+                
+                    <form action="{{ url_for('socios.eliminar_socio', socio_id=socio[0]) }}"
+                          method="POST"
+                          style="display:inline;">
+                
+                        <button type="submit"
+                                onclick="return confirm('¿Estás seguro de desactivar este socio?');">
+                            Eliminar
+                        </button>
+                    
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
