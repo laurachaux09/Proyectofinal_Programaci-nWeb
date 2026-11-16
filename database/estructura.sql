@@ -212,7 +212,7 @@ CREATE TABLE clase (
     	'PROGRAMADA',
     	'FINALIZADA',
     	'CANCELADA'
-));
+)));
 
 CREATE TABLE inscripcion_clase (
     socio_id INTEGER NOT NULL,
