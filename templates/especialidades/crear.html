@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Registrar especialidad{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white"><h5 class="mb-0">Registrar nueva especialidad</h5></div>
+    <div class="card-body">
+        <form action="{{ url_for('especialidades.crear_especialidad') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nombre de la especialidad</label>
+                <input type="text" name="nombre" class="form-control" maxlength="80" placeholder="Ej: CrossFit, Yoga, Spinning" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="3" maxlength="250" placeholder="Breve descripción de la disciplina (opcional)"></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('especialidades.listar_especialidades') }}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-primary">Registrar especialidad</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
