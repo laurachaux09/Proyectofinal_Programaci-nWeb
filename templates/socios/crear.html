@@ -1,57 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Registrar socio</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Registrar nuevo socio</h1>
+{% block title %}Registrar socio{% endblock %}
 
-    {% if mensaje %}
-        <p>{{ mensaje }}</p>
-    {% endif %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Registrar nuevo socio</h5>
+    </div>
+    <div class="card-body">
+        {% if mensaje %}
+            <div class="alert alert-warning">{{ mensaje }}</div>
+        {% endif %}
 
-    <form action="{{ url_for('socios.crear_socio') }}" method="POST">
+        <form action="{{ url_for('socios.crear_socio') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Documento</label>
+                <input type="text" name="documento" class="form-control" maxlength="20" required>
+            </div>
 
-        <label>Documento:</label>
-        <input type="text" name="documento" maxlength="20" required>
-        <br><br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" maxlength="50" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="apellido" class="form-control" maxlength="50" required>
+                </div>
+            </div>
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" maxlength="50" required>
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" name="telefono" class="form-control" maxlength="20">
+            </div>
 
-        <label>Apellido:</label>
-        <input type="text" name="apellido" maxlength="50" required>
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" name="correo" class="form-control" maxlength="100">
+            </div>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" maxlength="20">
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Fecha de nacimiento</label>
+                <input type="date" name="fecha_nacimiento" class="form-control" required>
+            </div>
 
-        <label>Correo:</label>
-        <input type="email" name="correo" maxlength="100">
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select" required>
+                    <option value="ACTIVO">Activo</option>
+                    <option value="INACTIVO">Inactivo</option>
+                </select>
+            </div>
 
-        <label>Fecha de nacimiento:</label>
-        <input type="date" name="fecha_nacimiento" required>
-        <br><br>
-
-        <label>Estado:</label>
-        <select name="estado" required>
-            <option value="ACTIVO">Activo</option>
-            <option value="INACTIVO">Inactivo</option>
-        </select>
-        <br><br>
-
-        <button type="submit">Registrar socio</button>
-
-    </form>
-
-    <br>
-
-    <a href="{{ url_for('socios.listar_socios') }}">Volver a la lista</a>
-
-</body>
-</html>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-secondary">Volver a la lista</a>
+                <button type="submit" class="btn btn-primary">Registrar socio</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

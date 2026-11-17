@@ -1,57 +1,62 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar socio</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1>Editar socio</h1>
+{% block title %}Editar socio{% endblock %}
 
-    {% if mensaje %}
-        <p>{{ mensaje }}</p>
-    {% endif %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">Editar socio</h5>
+    </div>
+    <div class="card-body">
+        {% if mensaje %}
+            <div class="alert alert-warning">{{ mensaje }}</div>
+        {% endif %}
 
-    <form action="{{ url_for('socios.editar_socio', socio_id=socio[0]) }}" method="POST">
+        <form action="{{ url_for('socios.editar_socio', socio_id=socio[0]) }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Documento</label>
+                <input type="text" name="documento" value="{{ socio[1] }}" class="form-control" maxlength="20" required>
+            </div>
 
-        <label>Documento:</label>
-        <input type="text" name="documento" value="{{ socio[1] }}" maxlength="20" required>
-        <br><br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" value="{{ socio[2] }}" class="form-control" maxlength="50" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="apellido" value="{{ socio[3] }}" class="form-control" maxlength="50" required>
+                </div>
+            </div>
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" value="{{ socio[2] }}" maxlength="50" required>
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" name="telefono" value="{{ socio[4] or '' }}" class="form-control" maxlength="20">
+            </div>
 
-        <label>Apellido:</label>
-        <input type="text" name="apellido" value="{{ socio[3] }}" maxlength="50" required>
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" name="correo" value="{{ socio[5] or '' }}" class="form-control" maxlength="100">
+            </div>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" value="{{ socio[4] or '' }}" maxlength="20">
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Fecha de nacimiento</label>
+                <input type="date" name="fecha_nacimiento" value="{{ socio[6] }}" class="form-control" required>
+            </div>
 
-        <label>Correo:</label>
-        <input type="email" name="correo" value="{{ socio[5] or '' }}" maxlength="100">
-        <br><br>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select" required>
+                    <option value="ACTIVO" {% if socio[8] == 'ACTIVO' %}selected{% endif %}>Activo</option>
+                    <option value="INACTIVO" {% if socio[8] == 'INACTIVO' %}selected{% endif %}>Inactivo</option>
+                </select>
+            </div>
 
-        <label>Fecha de nacimiento:</label>
-        <input type="date" name="fecha_nacimiento" value="{{ socio[6] }}" required>
-        <br><br>
-
-        <label>Estado:</label>
-        <select name="estado" required>
-            <option value="ACTIVO" {% if socio[8] == 'ACTIVO' %}selected{% endif %}>Activo</option>
-            <option value="INACTIVO" {% if socio[8] == 'INACTIVO' %}selected{% endif %}>Inactivo</option>
-        </select>
-        <br><br>
-
-        <button type="submit">Guardar cambios</button>
-
-    </form>
-
-    <br>
-
-    <a href="{{ url_for('socios.listar_socios') }}">Cancelar y volver</a>
-
-</body>
-</html>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-secondary">Cancelar y volver</a>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
