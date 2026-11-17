@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Asignar especialidad a entrenador{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white"><h5 class="mb-0">Asignar especialidad a entrenador</h5></div>
+    <div class="card-body">
+        <form action="{{ url_for('entrenadores_especialidades.crear') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Entrenador</label>
+                <select name="entrenador_id" class="form-select" required>
+                    <option value="">-- Selecciona un entrenador --</option>
+                    {% for ent in entrenadores %}
+                    <option value="{{ ent[0] }}">{{ ent[1] }} {{ ent[2] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Especialidad</label>
+                <select name="especialidad_id" class="form-select" required>
+                    <option value="">-- Selecciona una especialidad --</option>
+                    {% for esp in especialidades %}
+                    <option value="{{ esp[0] }}">{{ esp[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('entrenadores_especialidades.listar') }}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-primary">Guardar asignación</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

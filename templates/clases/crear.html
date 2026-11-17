@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Programar clase{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 650px;">
+    <div class="card-header bg-dark text-white"><h5 class="mb-0">Programar nueva clase</h5></div>
+    <div class="card-body">
+        <form action="{{ url_for('clases.crear_clase') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Nombre de la clase</label>
+                <input type="text" name="nombre_clase" class="form-control" maxlength="50" placeholder="Ej: CrossFit Matutino" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="2" maxlength="150"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Entrenador y Especialidad asignada</label>
+                <select name="entrenador_especialidad" class="form-select" required>
+                    <option value="">-- Selecciona entrenador y especialidad --</option>
+                    {% for p in parejas %}
+                    <option value="{{ p[0] }}-{{ p[1] }}">{{ p[2] }}</option>
+                    {% endfor %}
+                </select>
+                <div class="form-text">Solo aparecen entrenadores con su especialidad previamente asignada.</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Fecha y hora</label>
+                    <input type="datetime-local" name="fecha_hora" class="form-control" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Duración (min)</label>
+                    <input type="number" name="duracion_minutos" class="form-control" min="1" value="60" required>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Cupo máximo</label>
+                    <input type="number" name="cupo_maximo" class="form-control" min="1" value="15" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select" required>
+                    <option value="PROGRAMADA" selected>PROGRAMADA</option>
+                    <option value="FINALIZADA">FINALIZADA</option>
+                    <option value="CANCELADA">CANCELADA</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('clases.listar_clases') }}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-primary">Guardar clase</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
