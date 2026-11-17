@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio - Sistema de Gestión de Gimnasio{% endblock %}
+{% block title %}Inicio - Gimnasio{% endblock %}
 
 {% block content %}
-<div class="p-4 mb-4 bg-white rounded-3 shadow-sm border">
+<div class="p-4 mb-4 bg-white rounded-3 shadow-sm">
     <h1 class="display-6 fw-bold">Sistema de Gestión de Gimnasio</h1>
-    <p class="text-muted mb-0">Bienvenido al panel principal de administración. Selecciona un módulo para gestionar los registros.</p>
+    <p class="col-md-8 fs-5 text-muted">
+        Administra socios, entrenadores, especialidades, planes de membresía, pagos y clases desde un solo lugar.
+    </p>
 </div>
 
 <div class="row g-3">
@@ -15,6 +17,16 @@
                 <h5 class="card-title">Gestión de socios</h5>
                 <p class="card-text text-muted">Registro, consulta, edición y baja de clientes del gimnasio.</p>
                 <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-primary btn-sm">Ir a Socios</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de entrenadores</h5>
+                <p class="card-text text-muted">Registro, consulta, edición y baja del personal de entrenamiento.</p>
+                <a href="{{ url_for('entrenadores.listar_entrenadores') }}" class="btn btn-primary btn-sm">Ir a Entrenadores</a>
             </div>
         </div>
     </div>
