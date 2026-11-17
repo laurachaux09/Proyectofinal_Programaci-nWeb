@@ -1,32 +1,22 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Inicio - Sistema de Gestión de Gimnasio{% endblock %}
 
-    <title>Sistema de Gestión de Gimnasio</title>
-</head>
+{% block content %}
+<div class="p-4 mb-4 bg-white rounded-3 shadow-sm border">
+    <h1 class="display-6 fw-bold">Sistema de Gestión de Gimnasio</h1>
+    <p class="text-muted mb-0">Bienvenido al panel principal de administración. Selecciona un módulo para gestionar los registros.</p>
+</div>
 
-<body>
-
-    <h1>Sistema de Gestión de Gimnasio</h1>
-
-    <p>Bienvenido al sistema de administración del gimnasio.</p>
-
-    <h2>Panel principal</h2>
-
-    <ul>
-        <li>Gestión de socios</li>
-        <li>Gestión de entrenadores</li>
-        <li>Gestión de especialidades</li>
-        <li>Gestión de planes de membresía</li>
-        <li>Gestión de membresías</li>
-        <li>Gestión de pagos</li>
-        <li>Gestión de clases</li>
-        <li>Gestión de inscripciones</li>
-    </ul>
-
-</body>
-
-</html>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de socios</h5>
+                <p class="card-text text-muted">Registro, consulta, edición y baja de clientes del gimnasio.</p>
+                <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-primary btn-sm">Ir a Socios</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
