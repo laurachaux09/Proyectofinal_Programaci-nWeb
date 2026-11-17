@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Registrar entrenador{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white"><h5 class="mb-0">Registrar nuevo entrenador</h5></div>
+    <div class="card-body">
+        <form action="{{ url_for('entrenadores.crear_entrenador') }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Documento</label>
+                <input type="text" name="documento" class="form-control" maxlength="20" required>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" class="form-control" maxlength="50" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="apellido" class="form-control" maxlength="50" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" name="telefono" class="form-control" maxlength="20">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" name="correo" class="form-control" maxlength="100" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de contratación</label>
+                <input type="date" name="fecha_contratacion" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select" required>
+                    <option value="ACTIVO">Activo</option>
+                    <option value="INACTIVO">Inactivo</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('entrenadores.listar_entrenadores') }}" class="btn btn-secondary">Volver</a>
+                <button type="submit" class="btn btn-primary">Registrar entrenador</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

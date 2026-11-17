@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Entrenadores{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Entrenadores registrados</h2>
+    <a href="{{ url_for('entrenadores.crear_entrenador') }}" class="btn btn-primary">Registrar nuevo entrenador</a>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Documento</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Fecha contratación</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in entrenadores %}
+            <tr>
+                <td>{{ e[0] }}</td>
+                <td>{{ e[1] }}</td>
+                <td>{{ e[2] }}</td>
+                <td>{{ e[3] }}</td>
+                <td>{{ e[4] or 'N/A' }}</td>
+                <td>{{ e[5] }}</td>
+                <td>{{ e[6] }}</td>
+                <td>
+                    <span class="badge {{ 'bg-success' if e[7] == 'ACTIVO' else 'bg-secondary' }}">{{ e[7] }}</span>
+                </td>
+                <td>
+                    <a href="{{ url_for('entrenadores.editar_entrenador', entrenador_id=e[0]) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ url_for('entrenadores.eliminar_entrenador', entrenador_id=e[0]) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este entrenador?');">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-3">
+    <a href="{{ url_for('inicio') }}" class="btn btn-secondary btn-sm">Volver al inicio</a>
+</div>
+{% endblock %}

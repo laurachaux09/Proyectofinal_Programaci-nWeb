@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Editar entrenador{% endblock %}
+{% block content %}
+<div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="card-header bg-dark text-white"><h5 class="mb-0">Editar entrenador</h5></div>
+    <div class="card-body">
+        <form action="{{ url_for('entrenadores.editar_entrenador', entrenador_id=entrenador[0]) }}" method="POST">
+            <div class="mb-3">
+                <label class="form-label">Documento</label>
+                <input type="text" name="documento" value="{{ entrenador[1] }}" class="form-control" maxlength="20" required>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" name="nombre" value="{{ entrenador[2] }}" class="form-control" maxlength="50" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" name="apellido" value="{{ entrenador[3] }}" class="form-control" maxlength="50" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Teléfono</label>
+                <input type="text" name="telefono" value="{{ entrenador[4] or '' }}" class="form-control" maxlength="20">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Correo</label>
+                <input type="email" name="correo" value="{{ entrenador[5] }}" class="form-control" maxlength="100" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha de contratación</label>
+                <input type="date" name="fecha_contratacion" value="{{ entrenador[6] }}" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select" required>
+                    <option value="ACTIVO" {% if entrenador[7] == 'ACTIVO' %}selected{% endif %}>Activo</option>
+                    <option value="INACTIVO" {% if entrenador[7] == 'INACTIVO' %}selected{% endif %}>Inactivo</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('entrenadores.listar_entrenadores') }}" class="btn btn-secondary">Cancelar y volver</a>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
