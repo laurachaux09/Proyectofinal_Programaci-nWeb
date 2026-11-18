@@ -8,6 +8,6 @@ def get_connection():
         connection = psycopg2.connect(**DB_CONFIG)
         return connection
 
-    except psycopg2.Error as error:
+    except Exception as error:
         print("Error al conectar con PostgreSQL:", error)
         return None
