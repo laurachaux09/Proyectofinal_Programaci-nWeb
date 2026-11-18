@@ -18,15 +18,15 @@ def listar_clases():
                c.nombre_clase,
                c.descripcion,
                e.nombre || ' ' || e.apellido AS entrenador,
-               esp.nombre AS especialidad,
+               es.nombre_especialidad AS especialidad_nombre,
                c.fecha_hora,
                c.duracion_minutos,
                c.cupo_maximo,
                c.estado
         FROM clase c
         JOIN entrenador e ON c.entrenador_id = e.entrenador_id
-        JOIN especialidad esp ON c.especialidad_id = esp.especialidad_id
-        ORDER BY c.fecha_hora DESC
+        JOIN especialidad es ON c.especialidad_id = es.especialidad_id
+        ORDER BY e.nombre ASC, es.nombre_especialidad ASC
     """)
     clases = cur.fetchall()
     cur.close()
@@ -38,11 +38,11 @@ def obtener_parejas_validas(cur):
     cur.execute("""
         SELECT ee.entrenador_id,
                ee.especialidad_id,
-               e.nombre || ' ' || e.apellido || ' — ' || esp.nombre AS etiqueta
+               e.nombre || ' ' || e.apellido || ' — ' || esp.nombre_especialidad AS etiqueta
         FROM entrenador_especialidad ee
         JOIN entrenador e ON ee.entrenador_id = e.entrenador_id
         JOIN especialidad esp ON ee.especialidad_id = esp.especialidad_id
-        ORDER BY e.nombre ASC, esp.nombre ASC
+        ORDER BY e.nombre ASC, esp.nombre_especialidad ASC
     """)
     return cur.fetchall()
 
