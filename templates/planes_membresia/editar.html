@@ -1,0 +1,103 @@
+
+{% extends "base.html" %}
+
+{% block title %}Editar plan{% endblock %}
+
+{% block content %}
+
+<div class="card shadow-sm">
+
+    <div class="card-header bg-warning">
+        <h4 class="mb-0">Editar plan de membresía</h4>
+    </div>
+
+    <div class="card-body">
+
+        <form action="{{ url_for('planes.editar_plan', plan_id=plan[0]) }}" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">ID del plan</label>
+
+                <input type="text"
+                       class="form-control"
+                       value="{{ plan[0] }}"
+                       disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del plan</label>
+
+                <input type="text"
+                       name="nombre_plan"
+                       class="form-control"
+                       maxlength="40"
+                       value="{{ plan[1] }}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+
+                <textarea name="descripcion"
+                          class="form-control"
+                          maxlength="150"
+                          rows="3">{{ plan[2] or '' }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Duración (días)</label>
+
+                <input type="number"
+                       name="duracion_dias"
+                       class="form-control"
+                       min="1"
+                       value="{{ plan[3] }}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Precio</label>
+
+                <input type="number"
+                       name="precio"
+                       class="form-control"
+                       min="1"
+                       step="0.01"
+                       value="{{ plan[4] }}"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+
+                <select name="estado" class="form-select" required>
+
+                    <option value="ACTIVO"
+                        {% if plan[5]|upper == 'ACTIVO' %}selected{% endif %}>
+                        Activo
+                    </option>
+
+                    <option value="INACTIVO"
+                        {% if plan[5]|upper == 'INACTIVO' %}selected{% endif %}>
+                        Inactivo
+                    </option>
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                Guardar cambios
+            </button>
+
+            <a href="{{ url_for('planes.listar_planes') }}"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
