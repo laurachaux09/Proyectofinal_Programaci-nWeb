@@ -14,7 +14,7 @@ def listar_especialidades():
 
     cur = conn.cursor()
     cur.execute("""
-        SELECT especialidad_id, nombre, descripcion
+        SELECT especialidad_id, nombre_especialidad, descripcion
         FROM especialidad
         ORDER BY especialidad_id ASC
     """)
@@ -42,7 +42,7 @@ def crear_especialidad():
         cur = conn.cursor()
         try:
             cur.execute("""
-                INSERT INTO especialidad (nombre, descripcion)
+                INSERT INTO especialidad (nombre_especialidad, descripcion)
                 VALUES (%s, %s)
             """, (nombre, descripcion))
             conn.commit()
@@ -71,7 +71,7 @@ def editar_especialidad(especialidad_id):
     cur = conn.cursor()
 
     if request.method == "POST":
-        nombre = request.form.get("nombre", "").strip()
+        nombre = request.form.get("nombre_especialidad", "").strip()
         descripcion = request.form.get("descripcion", "").strip() or None
 
         if not nombre:
@@ -96,7 +96,7 @@ def editar_especialidad(especialidad_id):
                 flash(f"Error de base de datos: {e.diag.message_primary or str(e)}", "danger")
 
     cur.execute("""
-        SELECT especialidad_id, nombre, descripcion
+        SELECT especialidad_id, nombre_especialidad, descripcion
         FROM especialidad
         WHERE especialidad_id = %s
     """, (especialidad_id,))
