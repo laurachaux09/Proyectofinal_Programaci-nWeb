@@ -21,10 +21,10 @@ def listar():
         SELECT ee.entrenador_id,
                e.nombre || ' ' || e.apellido AS entrenador_nombre,
                ee.especialidad_id,
-               esp.nombre AS especialidad_nombre
+               e.nombre AS especialidad_nombre
         FROM entrenador_especialidad ee
         JOIN entrenador e ON ee.entrenador_id = e.entrenador_id
-        JOIN especialidad esp ON ee.especialidad_id = esp.especialidad_id
+        JOIN especialidad es ON ee.especialidad_id = es.especialidad_id
         ORDER BY entrenador_nombre ASC, especialidad_nombre ASC
     """)
     asignaciones = cur.fetchall()
@@ -69,9 +69,10 @@ def crear():
     cur.execute("SELECT entrenador_id, nombre, apellido FROM entrenador ORDER BY nombre ASC")
     entrenadores = cur.fetchall()
 
-    cur.execute("SELECT especialidad_id, nombre FROM especialidad ORDER BY nombre ASC")
+    cur.execute("SELECT especialidad_id, nombre_especialidad AS nombre FROM especialidad ORDER BY nombre_especialidad ASC")
+    cur.execute("SELECT especialidad_id, nombre_especialidad AS nombre FROM especialidad ORDER BY nombre_especialidad ASC")
     especialidades = cur.fetchall()
-
+    cur.close()
     cur.close()
     conn.close()
     return render_template(
