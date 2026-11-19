@@ -116,20 +116,39 @@ def crear_pago():
 
             flash("Pago registrado correctamente.", "success")
             return redirect(url_for("pagos.listar_pagos"))
-
-        # Consultar membresías para el formulario
+        
+        # Consultar membresías y sus saldos para el formulario
         cursor.execute("""
             SELECT
                 m.membresia_id,
                 s.nombre || ' ' || s.apellido AS socio,
+                s.documento,
                 p.nombre_plan,
-                m.fecha_fin,
-                m.estado
+                m.precio_contratado,
+                COALESCE(
+                    SUM(pg.monto) FILTER (
+                        WHERE UPPER(pg.estado) = 'APROBADO'
+                    ), 0
+                ) AS total_pagado,
+                m.precio_contratado - COALESCE(
+                    SUM(pg.monto) FILTER (
+                        WHERE UPPER(pg.estado) = 'APROBADO'
+                    ), 0
+                ) AS saldo_pendiente
             FROM membresia m
             INNER JOIN socio s
                 ON m.socio_id = s.socio_id
             INNER JOIN plan_membresia p
                 ON m.plan_id = p.plan_id
+            LEFT JOIN pago pg
+                ON m.membresia_id = pg.membresia_id
+            GROUP BY
+                m.membresia_id,
+                s.nombre,
+                s.apellido,
+                s.documento,
+                p.nombre_plan,
+                m.precio_contratado
             ORDER BY m.membresia_id;
         """)
 
@@ -213,16 +232,21 @@ def editar_pago(pago_id):
             flash("El pago no existe.", "warning")
             return redirect(url_for("pagos.listar_pagos"))
 
+        # Consultar membresías para el formulario de edición
         cursor.execute("""
-            SELECT m.membresia_id,
-                   s.nombre || ' ' || s.apellido AS socio,
-                   p.nombre_plan
+            SELECT
+                m.membresia_id,
+                s.nombre || ' ' || s.apellido AS socio,
+                s.documento,
+                p.nombre_plan
             FROM membresia m
-            INNER JOIN socio s ON m.socio_id = s.socio_id
-            INNER JOIN plan_membresia p ON m.plan_id = p.plan_id
+            INNER JOIN socio s
+                ON m.socio_id = s.socio_id
+            INNER JOIN plan_membresia p
+                ON m.plan_id = p.plan_id
             ORDER BY m.membresia_id;
         """)
-
+        
         membresias = cursor.fetchall()
 
         return render_template(
@@ -239,3 +263,4 @@ def editar_pago(pago_id):
     finally:
         cursor.close()
         connection.close()
+        
