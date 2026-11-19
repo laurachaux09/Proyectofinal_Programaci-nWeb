@@ -1,115 +1,223 @@
 {% extends "base.html" %}
 
-{% block title %}Inicio - Gimnasio{% endblock %}
+{% block title %}Inicio - FitManager Pro{% endblock %}
 
 {% block content %}
-<div class="p-4 mb-4 bg-white rounded-3 shadow-sm">
-    <h1 class="display-6 fw-bold">Sistema de Gestión de Gimnasio</h1>
-    <p class="col-md-8 fs-5 text-muted">
-        Administra socios, entrenadores, especialidades, planes de membresía, pagos y clases desde un solo lugar.
-    </p>
-</div>
-
-<div class="row g-3">
-    <div class="col-md-4">
-    <div class="card h-100 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Inscripciones a clases</h5>
-            <p class="card-text text-muted">
-                Registro y control de cupos de socios inscritos en clases programadas.
+<!-- Banner Hero con degradado oscuro y acento esmeralda -->
+<div class="p-4 p-md-5 mb-4 text-white rounded-4 shadow"
+     style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 65%, #065f46 100%);">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <span class="badge bg-success bg-opacity-25 text-success border border-success mb-2 px-3 py-2 rounded-pill">
+                <i class="bi bi-activity me-1"></i> Panel de Control en Tiempo Real
+            </span>
+            <h1 class="display-5 fw-bold mb-2">Sistema de Gestión de Gimnasio</h1>
+            <p class="fs-5 text-light opacity-75 mb-0">
+                Controla socios, entrenadores, clases grupales, membresías, pagos e inscripciones desde una sola plataforma.
             </p>
-            <a href="{{ url_for('inscripciones_clase.listar_inscripciones') }}" class="btn btn-primary btn-sm">
-                Ir a Inscripciones
+        </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+            <a href="{{ url_for('inscripciones_clase.crear_inscripcion') }}" class="btn btn-success btn-lg shadow-sm">
+                <i class="bi bi-plus-circle me-1"></i> Nueva Inscripción
             </a>
         </div>
     </div>
 </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de socios</h5>
-                <p class="card-text text-muted">Registro, consulta, edición y baja de clientes del gimnasio.</p>
-                <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-primary btn-sm">Ir a Socios</a>
+
+<!-- Tarjetas de métricas reales (KPIs desde PostgreSQL) -->
+{% if stats %}
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <div class="card p-3 border-start border-4 border-primary">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted fw-semibold text-uppercase">Socios Activos</small>
+                    <h3 class="fw-bold mb-0 mt-1">{{ stats.socios_activos }}</h3>
+                </div>
+                <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-3 fs-4">
+                    <i class="bi bi-people-fill"></i>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de entrenadores</h5>
-                <p class="card-text text-muted">Registro, consulta, edición y baja del personal de entrenamiento.</p>
-                <a href="{{ url_for('entrenadores.listar_entrenadores') }}" class="btn btn-primary btn-sm">Ir a Entrenadores</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Especialidades</h5>
-                <p class="card-text text-muted">Catálogo de disciplinas y áreas de entrenamiento disponibles.</p>
-                <a href="{{ url_for('especialidades.listar_especialidades') }}" class="btn btn-primary btn-sm">Ir a Especialidades</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Entrenador - Especialidad</h5>
-                <p class="card-text text-muted">Asignación de especialidades certificadas a cada entrenador.</p>
-                <a href="{{ url_for('entrenadores_especialidades.listar') }}" class="btn btn-primary btn-sm">Ir a Asignaciones</a>
+    <div class="col-6 col-lg-3">
+        <div class="card p-3 border-start border-4 border-success">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted fw-semibold text-uppercase">Membresías Vigentes</small>
+                    <h3 class="fw-bold mb-0 mt-1">{{ stats.membresias_activas }}</h3>
+                </div>
+                <div class="bg-success bg-opacity-10 text-success p-3 rounded-3 fs-4">
+                    <i class="bi bi-patch-check-fill"></i>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de clases</h5>
-                <p class="card-text text-muted">Programación, horarios, cupos y estados de las clases grupales.</p>
-                <a href="{{ url_for('clases.listar_clases') }}" class="btn btn-primary btn-sm">Ir a Clases</a>
+    <div class="col-6 col-lg-3">
+        <div class="card p-3 border-start border-4 border-warning">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted fw-semibold text-uppercase">Clases Programadas</small>
+                    <h3 class="fw-bold mb-0 mt-1">{{ stats.clases_programadas }}</h3>
+                </div>
+                <div class="bg-warning bg-opacity-10 text-warning p-3 rounded-3 fs-4">
+                    <i class="bi bi-calendar2-week-fill"></i>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="card p-3 border-start border-4 border-info">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted fw-semibold text-uppercase">Ingresos Aprobados</small>
+                    <h3 class="fw-bold mb-0 mt-1">${{ "{:,.0f}".format(stats.ingresos_totales) }}</h3>
+                </div>
+                <div class="bg-info bg-opacity-10 text-info p-3 rounded-3 fs-4">
+                    <i class="bi bi-currency-dollar"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Módulos del sistema -->
+<h5 class="fw-bold text-secondary mb-3"><i class="bi bi-grid-fill me-2"></i>Módulos Operativos</h5>
+<div class="row g-3">
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de planes</h5>
-                <p class="card-text text-muted">
-                    Registro, consulta, edición y desactivación de planes de membresía disponibles.
-                </p>
-                <a href="{{ url_for('planes.listar_planes') }}"
-                   class="btn btn-primary btn-sm">
-                    Ir a Planes
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary bg-opacity-10 text-primary p-2 fs-5"><i class="bi bi-people"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Socios</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Registro, consulta, edición y control de estado de clientes del gimnasio.</p>
+                <a href="{{ url_for('socios.listar_socios') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Socios <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
     </div>
 
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de membresías</h5>
-                <p class="card-text text-muted">
-                    Registro, consulta, edición y administración de las membresías de los socios.
-                </p>
-                <a href="{{ url_for('membresias.listar_membresias') }}"
-                   class="btn btn-primary btn-sm">
-                    Ir a Membresías
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-success bg-opacity-10 text-success p-2 fs-5"><i class="bi bi-person-badge"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Entrenadores</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Registro, consulta, edición y administración del personal de entrenamiento.</p>
+                <a href="{{ url_for('entrenadores.listar_entrenadores') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Entrenadores <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
     </div>
+
     <div class="col-md-4">
-        <div class="card h-100 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">Gestión de pagos</h5>
-                <p class="card-text text-muted">
-                    Registro, consulta, edición y administración de los pagos realizados por los socios.
-                </p>
-                <a href="{{ url_for('pagos.listar_pagos') }}"
-                   class="btn btn-primary btn-sm">
-                    Ir a Pagos
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-warning bg-opacity-10 text-warning p-2 fs-5"><i class="bi bi-award"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Especialidades</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Catálogo de disciplinas y áreas de entrenamiento disponibles en el centro.</p>
+                <a href="{{ url_for('especialidades.listar_especialidades') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Especialidades <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-info bg-opacity-10 text-info p-2 fs-5"><i class="bi bi-diagram-3"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Entrenador - Especialidad</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Asignación de especialidades certificadas a cada entrenador activo.</p>
+                <a href="{{ url_for('entrenadores_especialidades.listar') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Asignaciones <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-danger bg-opacity-10 text-danger p-2 fs-5"><i class="bi bi-calendar-event"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Clases</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Programación, horarios, cupos máximos y estados de las clases grupales.</p>
+                <a href="{{ url_for('clases.listar_clases') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Clases <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary p-2 fs-5"><i class="bi bi-tags"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Planes</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Configuración de tarifas, duración en días y planes de suscripción.</p>
+                <a href="{{ url_for('planes.listar_planes') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Planes <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-primary bg-opacity-10 text-primary p-2 fs-5"><i class="bi bi-card-checklist"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Membresías</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Control de fechas de inicio, vencimiento y vigencia de contratos de socios.</p>
+                <a href="{{ url_for('membresias.listar_membresias') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Membresías <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-success bg-opacity-10 text-success p-2 fs-5"><i class="bi bi-cash-coin"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Gestión de Pagos</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Registro de recaudos, métodos de pago y validación de transacciones.</p>
+                <a href="{{ url_for('pagos.listar_pagos') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Pagos <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-hover h-100">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge bg-warning bg-opacity-10 text-warning p-2 fs-5"><i class="bi bi-check2-circle"></i></span>
+                    <h5 class="card-title fw-bold mb-0">Inscripciones a Clases</h5>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">Reserva de cupos validada por triggers de membresía activa y aforo.</p>
+                <a href="{{ url_for('inscripciones_clase.listar_inscripciones') }}" class="btn btn-primary btn-sm align-self-start">
+                    Ir a Inscripciones <i class="bi bi-arrow-right ms-1"></i>
                 </a>
             </div>
         </div>
