@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Inscripción - Gimnasio{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Editar Estado de Inscripción</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Socio</label>
+                    <input type="text" class="form-control" value="{{ inscripcion[2] }} - {{ inscripcion[3] }} {{ inscripcion[4] }}" disabled>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Clase</label>
+                    <input type="text" class="form-control" value="{{ inscripcion[5] }} ({{ inscripcion[6].strftime('%Y-%m-%d %H:%M') }})" disabled>
+                </div>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado de la Inscripción</label>
+                        <select name="estado" id="estado" class="form-select" required>
+                            <option value="INSCRITO" {% if inscripcion[8] == 'INSCRITO' %}selected{% endif %}>INSCRITO</option>
+                            <option value="CANCELADO" {% if inscripcion[8] == 'CANCELADO' %}selected{% endif %}>CANCELADO</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('inscripciones_clase.listar_inscripciones') }}" class="btn btn-secondary">
+                            Volver
+                        </a>
+                        <button type="submit" class="btn btn-warning">Actualizar Estado</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

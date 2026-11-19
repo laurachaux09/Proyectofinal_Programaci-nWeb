@@ -12,6 +12,19 @@
 
 <div class="row g-3">
     <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Inscripciones a clases</h5>
+            <p class="card-text text-muted">
+                Registro y control de cupos de socios inscritos en clases programadas.
+            </p>
+            <a href="{{ url_for('inscripciones_clase.listar_inscripciones') }}" class="btn btn-primary btn-sm">
+                Ir a Inscripciones
+            </a>
+        </div>
+    </div>
+</div>
+    <div class="col-md-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
                 <h5 class="card-title">Gestión de socios</h5>
