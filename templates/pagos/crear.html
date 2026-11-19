@@ -18,30 +18,64 @@
 
                 <form method="POST">
 
-                    <div class="mb-3">
-                        <label for="membresia_id" class="form-label">
-                            Membresía
-                        </label>
+            <div class="mb-3">
+                <label for="membresia_id" class="form-label">
+                    Seleccionar socio y membresía
+                </label>
+            
+                <select name="membresia_id"
+                        id="membresia_id"
+                        class="form-select"
+                        required>
+            
+                    <option value="">Seleccione un socio</option>
+            
+                    {% for membresia in membresias %}
+                        {% if membresia[6] > 0 %}
+                            <option value="{{ membresia[0] }}"
+                                    data-plan="{{ membresia[3] }}"
+                                    data-total="{{ membresia[4] }}"
+                                    data-pagado="{{ membresia[5] }}"
+                                    data-saldo="{{ membresia[6] }}">
+            
+                                {{ membresia[1] }} -
+                                Documento: {{ membresia[2] }}
+            
+                            </option>
+                        {% endif %}
+                    {% endfor %}
+                        
+                </select>
+            </div>
 
-                        <select name="membresia_id"
-                                id="membresia_id"
-                                class="form-select"
-                                required>
+            <div id="informacion-membresia"
+                 class="alert alert-info"
+                 style="display: none;">
 
-                            <option value="">Seleccione una membresía</option>
+                <h6 class="mb-3">Información de la membresía</h6>
 
-                            {% for membresia in membresias %}
-                                <option value="{{ membresia[0] }}">
-                                    ID {{ membresia[0] }} -
-                                    {{ membresia[1] }} -
-                                    {{ membresia[2] }}
-                                    (Vence: {{ membresia[3] }})
-                                    - {{ membresia[4] }}
-                                </option>
-                            {% endfor %}
+                <p class="mb-1">
+                    <strong>Plan:</strong>
+                    <span id="detalle-plan"></span>
+                </p>
+            
+                <p class="mb-1">
+                    <strong>Valor total:</strong>
+                    <span id="detalle-total"></span>
+                </p>
+            
+                <p class="mb-1">
+                    <strong>Total pagado:</strong>
+                    <span id="detalle-pagado"></span>
+                </p>
+            
+                <p class="mb-0">
+                    <strong>Saldo pendiente:</strong>
+                    <span id="detalle-saldo" class="fw-bold"></span>
+                </p>
+            
+            </div>
 
-                        </select>
-                    </div>
 
                     <div class="mb-3">
                         <label for="monto" class="form-label">
@@ -114,5 +148,44 @@
 
     </div>
 </div>
+
+<script>
+    const selectorMembresia = document.getElementById("membresia_id");
+    const informacionMembresia = document.getElementById("informacion-membresia");
+
+    function formatoMoneda(valor) {
+        return new Intl.NumberFormat("es-CO", {
+            style: "currency",
+            currency: "COP",
+            maximumFractionDigits: 0
+        }).format(Number(valor));
+    }
+
+    selectorMembresia.addEventListener("change", function () {
+        const opcion = this.options[this.selectedIndex];
+
+        if (!opcion.value) {
+            informacionMembresia.style.display = "none";
+            return;
+        }
+
+        document.getElementById("detalle-plan").textContent =
+            opcion.dataset.plan;
+
+        document.getElementById("detalle-total").textContent =
+            formatoMoneda(opcion.dataset.total);
+
+        document.getElementById("detalle-pagado").textContent =
+            formatoMoneda(opcion.dataset.pagado);
+
+        document.getElementById("detalle-saldo").textContent =
+            formatoMoneda(opcion.dataset.saldo);
+
+        informacionMembresia.style.display = "block";
+
+        document.getElementById("monto").max =
+            opcion.dataset.saldo;
+    });
+</script>
 
 {% endblock %}

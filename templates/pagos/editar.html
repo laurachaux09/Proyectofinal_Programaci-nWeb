@@ -1,0 +1,134 @@
+
+{% extends "base.html" %}
+
+{% block title %}Editar pago{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-7 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning">
+                <h4 class="mb-0">Editar pago #{{ pago[0] }}</h4>
+            </div>
+
+            <div class="card-body">
+                <form method="POST">
+
+                    <div class="mb-3">
+                        <label for="membresia_id" class="form-label">
+                            Socio y membresía
+                        </label>
+                    
+                        <select name="membresia_id"
+                                id="membresia_id"
+                                class="form-select"
+                                required>
+                    
+                            {% for membresia in membresias %}
+                                <option value="{{ membresia[0] }}"
+                                    {% if membresia[0] == pago[1] %}
+                                        selected
+                                    {% endif %}>
+                    
+                                    {{ membresia[1] }} -
+                                    Documento: {{ membresia[2] }} -
+                                    Plan: {{ membresia[3] }}
+                    
+                                </option>
+                            {% endfor %}
+                            
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="monto" class="form-label">
+                            Monto del pago
+                        </label>
+
+                        <input type="number"
+                               name="monto"
+                               id="monto"
+                               class="form-control"
+                               min="0.01"
+                               step="0.01"
+                               value="{{ pago[2] }}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="metodo_pago" class="form-label">
+                            Método de pago
+                        </label>
+
+                        <select name="metodo_pago"
+                                id="metodo_pago"
+                                class="form-select"
+                                required>
+
+                            <option value="EFECTIVO"
+                                {% if pago[3] == 'EFECTIVO' %}selected{% endif %}>
+                                Efectivo
+                            </option>
+
+                            <option value="TARJETA"
+                                {% if pago[3] == 'TARJETA' %}selected{% endif %}>
+                                Tarjeta
+                            </option>
+
+                            <option value="TRANSFERENCIA"
+                                {% if pago[3] == 'TRANSFERENCIA' %}selected{% endif %}>
+                                Transferencia
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">
+                            Estado del pago
+                        </label>
+
+                        <select name="estado"
+                                id="estado"
+                                class="form-select"
+                                required>
+
+                            <option value="PENDIENTE"
+                                {% if pago[4] == 'PENDIENTE' %}selected{% endif %}>
+                                Pendiente
+                            </option>
+
+                            <option value="APROBADO"
+                                {% if pago[4] == 'APROBADO' %}selected{% endif %}>
+                                Aprobado
+                            </option>
+
+                            <option value="RECHAZADO"
+                                {% if pago[4] == 'RECHAZADO' %}selected{% endif %}>
+                                Rechazado
+                            </option>
+
+                            <option value="ANULADO"
+                                {% if pago[4] == 'ANULADO' %}selected{% endif %}>
+                                Anulado
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('pagos.listar_pagos') }}"
+                           class="btn btn-secondary">
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-warning">
+                            Guardar cambios
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
