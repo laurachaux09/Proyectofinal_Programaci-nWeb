@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}FitManager Pro - Gestión de Gimnasio{% endblock %}</title>
+    <title>{% block title %}Gimnasio Corlau{% endblock %}</title>
     <!-- Fuente moderna Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,11 +65,16 @@
             white-space: nowrap;
         }
 
-        .navbar-gym .nav-link:hover,
-        .navbar-gym .nav-link.active {
-            color: #ffffff !important;
-            background-color: rgba(255, 255, 255, 0.12);
+        .navbar-gym .nav-link {
+            color: rgba(255, 255, 255, 0.78) !important;
+            font-weight: 500;
+            font-size: 0.81rem;
+            padding: 0.4rem 0.5rem !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
+        
 
         /* Tarjetas interactivas */
         .card {
@@ -152,7 +157,7 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('inicio') }}">
                 <span class="brand-badge"><i class="bi bi-lightning-charge-fill"></i></span>
-                <span>FitManager <span style="color: var(--gym-accent);">Pro</span></span>
+                <span>Gimnasio <span style="color: var(--gym-accent);">Corlau</span></span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -227,7 +232,7 @@
 
     <footer class="py-3 text-center">
         <div class="container">
-            <span>FitManager Pro © 2026 — Sistema Integral de Gestión de Gimnasio (Flask + PostgreSQL)</span>
+            <span>Gimnasio Corlau © 2026 — Sistema Integral de Gestión de Gimnasio (Flask + PostgreSQL)</span>
         </div>
     </footer>
 
