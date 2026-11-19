@@ -40,24 +40,24 @@
         </div>
     </div>
     <div class="col-md-4">
-    <div class="card h-100 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Entrenador - Especialidad</h5>
-            <p class="card-text text-muted">Asignación de especialidades certificadas a cada entrenador.</p>
-            <a href="{{ url_for('entrenadores_especialidades.listar') }}" class="btn btn-primary btn-sm">Ir a Asignaciones</a>
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Entrenador - Especialidad</h5>
+                <p class="card-text text-muted">Asignación de especialidades certificadas a cada entrenador.</p>
+                <a href="{{ url_for('entrenadores_especialidades.listar') }}" class="btn btn-primary btn-sm">Ir a Asignaciones</a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="col-md-4">
-    <div class="card h-100 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Gestión de clases</h5>
-            <p class="card-text text-muted">Programación, horarios, cupos y estados de las clases grupales.</p>
-            <a href="{{ url_for('clases.listar_clases') }}" class="btn btn-primary btn-sm">Ir a Clases</a>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de clases</h5>
+                <p class="card-text text-muted">Programación, horarios, cupos y estados de las clases grupales.</p>
+                <a href="{{ url_for('clases.listar_clases') }}" class="btn btn-primary btn-sm">Ir a Clases</a>
+            </div>
         </div>
     </div>
-</div>
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
@@ -73,7 +73,6 @@
         </div>
     </div>
 
-    <!-- GESTIÓN DE MEMBRESÍAS -->
     <div class="col-md-4">
         <div class="card h-100 shadow-sm">
             <div class="card-body">
@@ -84,6 +83,20 @@
                 <a href="{{ url_for('membresias.listar_membresias') }}"
                    class="btn btn-primary btn-sm">
                     Ir a Membresías
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Gestión de pagos</h5>
+                <p class="card-text text-muted">
+                    Registro, consulta, edición y administración de los pagos realizados por los socios.
+                </p>
+                <a href="{{ url_for('pagos.listar_pagos') }}"
+                   class="btn btn-primary btn-sm">
+                    Ir a Pagos
                 </a>
             </div>
         </div>

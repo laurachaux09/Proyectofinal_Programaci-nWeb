@@ -7,6 +7,7 @@ from routes.entrenadores_especialidades import entrenadores_esp_bp
 from routes.clases import clases_bp
 from routes.planes_membresia import planes_bp
 from routes.membresias import membresias_bp
+from routes.pagos import pagos_bp
 
 from config import SECRET_KEY
 app = Flask(__name__)
@@ -19,6 +20,7 @@ app.register_blueprint(especialidades_bp)
 app.register_blueprint(entrenadores_esp_bp)
 app.register_blueprint(clases_bp)
 app.register_blueprint(membresias_bp)
+app.register_blueprint(pagos_bp)
 
 @app.route("/")
 def inicio():
