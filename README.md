@@ -1,6 +1,7 @@
 ﻿# Gimnasio Corlau — Sistema Integral de Gestión
 
-Aplicación web desarrollada en **Python (Flask)** y **PostgreSQL** para la administración operativa de un gimnasio, implementando operaciones CRUD completas sobre un modelo relacional normalizado hasta la Tercera Forma Normal (3FN)[cite: 6, 7].
+Aplicación web desarrollada en **Python (Flask)** y **PostgreSQL** para la administración operativa de un gimnasio, implementando operaciones CRUD completas sobre un modelo relacional normalizado hasta la Tercera Forma Normal (3FN)
+
 
 ## Integrantes
 * Laura Sofía Chaux Trujillo
@@ -24,6 +25,7 @@ El sistema permite realizar operaciones CRUD (crear, consultar, actualizar y eli
 - *Bootstrap 5:* diseño adaptable e interfaz visual.
 - *Jinja2:* generación dinámica de las plantillas HTML.
 - *python-dotenv:* gestión de variables de entorno.
+
 
 ## Módulos del sistema
 
