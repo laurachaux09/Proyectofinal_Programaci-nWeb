@@ -32,10 +32,9 @@ def crear_entrenador():
         apellido = request.form.get("apellido", "").strip()
         telefono = request.form.get("telefono", "").strip() or None
         correo = request.form.get("correo", "").strip()
-        fecha_contratacion = request.form.get("fecha_contratacion", "").strip()
         estado = request.form.get("estado", "ACTIVO").strip().upper()
 
-        if not documento or not nombre or not apellido or not correo or not fecha_contratacion:
+        if not documento or not nombre or not apellido or not correo:
             flash("Todos los campos obligatorios deben completarse.", "warning")
             return render_template("entrenadores/crear.html")
 
@@ -47,9 +46,9 @@ def crear_entrenador():
         cur = conn.cursor()
         try:
             cur.execute("""
-                INSERT INTO entrenador (documento, nombre, apellido, telefono, correo, fecha_contratacion, estado)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
-            """, (documento, nombre, apellido, telefono, correo, fecha_contratacion, estado))
+                INSERT INTO entrenador (documento, nombre, apellido, telefono, correo, estado)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (documento, nombre, apellido, telefono, correo, estado))
             conn.commit()
             flash("Entrenador registrado correctamente.", "success")
             return redirect(url_for("entrenadores.listar_entrenadores"))
@@ -81,16 +80,15 @@ def editar_entrenador(entrenador_id):
         apellido = request.form.get("apellido", "").strip()
         telefono = request.form.get("telefono", "").strip() or None
         correo = request.form.get("correo", "").strip()
-        fecha_contratacion = request.form.get("fecha_contratacion", "").strip()
         estado = request.form.get("estado", "ACTIVO").strip().upper()
 
         try:
             cur.execute("""
                 UPDATE entrenador
                 SET documento = %s, nombre = %s, apellido = %s, telefono = %s,
-                    correo = %s, fecha_contratacion = %s, estado = %s
+                    correo = %s, estado = %s
                 WHERE entrenador_id = %s
-            """, (documento, nombre, apellido, telefono, correo, fecha_contratacion, estado, entrenador_id))
+            """, (documento, nombre, apellido, telefono, correo, estado, entrenador_id))
             conn.commit()
             flash("Entrenador actualizado correctamente.", "success")
             cur.close()
