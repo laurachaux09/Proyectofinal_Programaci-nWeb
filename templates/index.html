@@ -3,26 +3,39 @@
 {% block title %}Inicio - Gimnasio Corlau{% endblock %}
 
 {% block content %}
-<!-- Banner Hero con degradado oscuro y acento esmeralda -->
+
+<!-- Banner Hero de bienvenida -->
 <div class="p-4 p-md-5 mb-4 text-white rounded-4 shadow"
      style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 65%, #065f46 100%);">
+
     <div class="row align-items-center">
         <div class="col-lg-8">
+
             <span class="badge bg-success bg-opacity-25 text-success border border-success mb-2 px-3 py-2 rounded-pill">
-                <i class="bi bi-activity me-1"></i> Panel de Control en Tiempo Real
+                <i class="bi bi-activity me-1"></i> Bienvenido a Gimnasio Corlau
             </span>
-            <h1 class="display-5 fw-bold mb-2">Gimnasio Corlau</h1>
+
+            <h1 class="display-5 fw-bold mb-2">
+                ¡Tu transformación comienza hoy!
+            </h1>
+
             <p class="fs-5 text-light opacity-75 mb-0">
-                Controla socios, entrenadores, clases grupales, membresías, pagos e inscripciones desde una sola plataforma.
+                Únete a nuestra comunidad, conoce nuestros planes y comienza
+                a trabajar por tus objetivos con el acompañamiento de nuestros entrenadores.
             </p>
+
         </div>
-        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
-            <a href="{{ url_for('inscripciones_clase.crear_inscripcion') }}" class="btn btn-success btn-lg shadow-sm">
-                <i class="bi bi-plus-circle me-1"></i> Nueva Inscripción
+
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+            <a href="{{ url_for('socios.crear_socio') }}"
+               class="btn btn-success btn-lg shadow-sm">
+                <i class="bi bi-person-plus me-1"></i> ¡Quiero unirme!
             </a>
         </div>
     </div>
+
 </div>
+
 
 <!-- Tarjetas de métricas reales (KPIs desde PostgreSQL) -->
 {% if stats %}
