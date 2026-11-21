@@ -27,7 +27,7 @@ def listar_especialidades():
 @especialidades_bp.route("/crear", methods=["GET", "POST"])
 def crear_especialidad():
     if request.method == "POST":
-        nombre = request.form.get("nombre", "").strip()
+        nombre = request.form.get("nombre_especialidad", "").strip()
         descripcion = request.form.get("descripcion", "").strip() or None
 
         if not nombre:
@@ -80,7 +80,7 @@ def editar_especialidad(especialidad_id):
             try:
                 cur.execute("""
                     UPDATE especialidad
-                    SET nombre = %s, descripcion = %s
+                    SET nombre_especialidad = %s, descripcion = %s
                     WHERE especialidad_id = %s
                 """, (nombre, descripcion, especialidad_id))
                 conn.commit()

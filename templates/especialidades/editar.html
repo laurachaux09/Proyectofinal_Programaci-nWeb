@@ -7,7 +7,7 @@
         <form action="{{ url_for('especialidades.editar_especialidad', especialidad_id=especialidad[0]) }}" method="POST">
             <div class="mb-3">
                 <label class="form-label">Nombre de la especialidad</label>
-                <input type="text" name="nombre" value="{{ especialidad[1] }}" class="form-control" maxlength="80" required>
+                <input type="text" name="nombre_especialidad" value="{{ especialidad[1] }}" class="form-control" maxlength="80" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
