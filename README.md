@@ -26,10 +26,9 @@ El sistema permite realizar operaciones CRUD (crear, consultar, actualizar y eli
 - *Jinja2:* generación dinámica de las plantillas HTML.
 - *python-dotenv:* gestión de variables de entorno.
 
-
 ## Módulos del sistema
 
-**Gimnasio Corlau** permite gestionar de manera centralizada:
+El proyecto cuenta con los siguientes módulos:
 
 1. *Socios:* registro, consulta, edición y desactivación de socios.
 2. *Entrenadores:* administración de los entrenadores del gimnasio.
@@ -73,17 +72,85 @@ Gimnasio_CorLau/
 └── README.md
 
 
+## Requisitos previos
 
-## Modelo Entidad-Relación (MER)
-La base de datos está diseñada cumpliendo **1FN, 2FN y 3FN**, garantizando integridad referencial mediante llaves primarias (`PK`) y llaves foráneas (`FK`):
+Antes de ejecutar el proyecto, es necesario tener instalado:
 
-![Diagrama Entidad-Relación](docs/Diagrama_Entidad_Relacion.jpg)
+- Python 3.
+- PostgreSQL.
+- Visual Studio Code (recomendado).
+- Git (opcional, para clonar el repositorio).
 
-
-
-## Instalación y Ejecución Local
+## Instalación y configuración
 
 ### 1. Clonar el repositorio
-```bash
-git clone [https://github.com/tu-usuario/Proyectofinal_Programaci-nWeb.git](https://github.com/tu-usuario/Proyectofinal_Programaci-nWeb.git)
-cd Proyectofinal_Programaci-nWeb
+
+Abrir una terminal y ejecutar:
+
+bash
+git clone https://github.com/laurachaux09/Proyectofinal_Programaci-nWeb
+
+
+Ingresar a la carpeta del proyecto:
+
+bash
+cd Gimnasio_CorLau
+
+### 2. Crear el entorno virtual
+
+En Windows, ejecutar:
+
+powershell
+python -m venv .venv
+
+
+Activar el entorno virtual:
+
+powershell
+.venv\Scripts\Activate
+
+
+### 3. Instalar las dependencias
+
+Con el entorno virtual activado, ejecutar:
+
+bash
+python -m pip install -r requirements.txt
+
+
+### 4. Configurar PostgreSQL
+
+1. Abrir PostgreSQL mediante pgAdmin.
+2. Crear una base de datos llamada gimnasio_db.
+3. Ejecutar el script SQL de creación de tablas ubicado en la carpeta database/.
+4. Ejecutar el script de inserción de datos para cargar los registros iniciales, si se encuentra disponible.
+
+### 5. Configurar las variables de entorno
+
+Crear un archivo .env en la raíz del proyecto, tomando como referencia el archivo .env.example.
+
+Configurar en él los datos de conexión a PostgreSQL, de acuerdo con las variables utilizadas en config.py.
+
+*Importante:* el archivo .env contiene información de configuración privada y no debe subirse al repositorio.
+
+### 6. Ejecutar la aplicación
+Con el entorno virtual activado y PostgreSQL disponible, ejecutar:
+
+bash
+python app.py
+
+
+Abrir en el navegador la dirección local que indique Flask en la terminal, normalmente:
+
+text
+http://127.0.0.1:5000/
+
+La carpeta database/ contiene los archivos relacionados con la creación, carga y respaldo de la base de datos.
+
+## Consideraciones
+
+- Es necesario tener PostgreSQL instalado y en funcionamiento para utilizar la aplicación.
+- La base de datos debe estar creada y configurada antes de iniciar Flask.
+- Las credenciales de conexión deben configurarse en el archivo .env.
+- El entorno virtual .venv/ no se incluye en el repositorio.
+- El archivo .env no se incluye por motivos de seguridad.
