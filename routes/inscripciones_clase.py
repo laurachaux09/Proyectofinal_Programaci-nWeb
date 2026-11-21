@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from db import get_connection
+import psycopg2
 
 inscripciones_bp = Blueprint(
     "inscripciones_clase",
@@ -98,13 +99,28 @@ def crear_inscripcion():
             flash("Inscripción registrada correctamente.", "success")
             return redirect(url_for("inscripciones_clase.listar_inscripciones"))
 
-        except Exception as e:
+        
+        except psycopg2.errors.UniqueViolation:
             conn.rollback()
-            mensaje_error = str(e).splitlines()[0]
-            if "unique" in mensaje_error.lower() or "duplicate" in mensaje_error.lower():
-                flash("Este socio ya tiene un registro de inscripción en esa clase.", "danger")
-            else:
-                flash(f"No se pudo completar la inscripción: {mensaje_error}", "danger")
+            flash(
+                "Este socio ya tiene una inscripción registrada para esta clase. "
+                "Puedes consultar sus inscripciones y revisar su estado.",
+                "warning"
+            )
+
+        except psycopg2.errors.RaiseException as e:
+            conn.rollback()
+            mensaje = e.diag.message_primary or "No se pudo completar la inscripción."
+            flash(mensaje, "warning")
+
+        except Exception:
+            conn.rollback()
+            flash(
+                "Ocurrió un error inesperado al registrar la inscripción. "
+                "Por favor, inténtalo nuevamente.",
+                "danger"
+            )
+
 
     socios, clases = obtener_socios_y_clases(cur)
     cur.close()
